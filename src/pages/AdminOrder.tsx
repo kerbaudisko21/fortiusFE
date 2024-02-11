@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import getApi from '../utility/api';
 
 interface Order {
     id: number;
@@ -14,6 +15,7 @@ const AdminOrder = () => {
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
+    let apiBaseUrl = getApi();
 
     useEffect(() => {
         if (userAccessToken) {
@@ -28,7 +30,7 @@ const AdminOrder = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/v1/transactions', {
+            const response = await axios.get(`${apiBaseUrl}/api/v1/transactions`, {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
@@ -42,7 +44,7 @@ const AdminOrder = () => {
 
     const updateOrderStatus = async (orderId: number, newStatus: string) => {
         try {
-            await axios.put(`http://localhost:8000/api/v1/transactions/update_status/${orderId}`, { status: newStatus }, {
+            await axios.put(`${apiBaseUrl}/api/v1/transactions/update_status/${orderId}`, { status: newStatus }, {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
@@ -73,7 +75,7 @@ const AdminOrder = () => {
             });
 
             if (confirmed.isConfirmed) {
-                await axios.delete(`http://localhost:8000/api/v1/transactions/${orderId}`, {
+                await axios.delete(`${apiBaseUrl}/api/v1/transactions/${orderId}`, {
                     headers: {
                         'Authorization': `Bearer ${userAccessToken}`
                     }

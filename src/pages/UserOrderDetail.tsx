@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import getApi from '../utility/api';
 
 const UserOrderDetail = () => {
     const [orderDetail, setOrderDetail] = useState(null);
@@ -10,18 +11,19 @@ const UserOrderDetail = () => {
     const userId = userData ? userData.user.id : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
+    let apiBaseUrl = getApi();
 
     useEffect(() => {
         if (!userData) {
             navigate('/login');
         }
 
-        fetchOrderDetail(); 
+        fetchOrderDetail();
     }, [userData]);
 
     const fetchOrderDetail = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/v1/transactions/detail/${transactionId}`, {
+            const response = await axios.get(`${apiBaseUrl}/api/v1/transactions/detail/${transactionId}`, {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }

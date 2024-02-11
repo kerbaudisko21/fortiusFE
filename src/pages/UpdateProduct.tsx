@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate, useParams } from 'react-router-dom';
+import getApi from '../utility/api';
 
 const UpdateProduct = () => {
     const { productId } = useParams<{ productId: string }>();
@@ -14,11 +15,12 @@ const UpdateProduct = () => {
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
-    
+    let apiBaseUrl = getApi();
+
     useEffect(() => {
         const fetchProductData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/v1/product/${productId}`, {
+                const response = await axios.get(`${apiBaseUrl}/api/v1/product/${productId}`, {
                     headers: {
                         'Authorization': `Bearer ${userAccessToken}`
                     }
@@ -64,14 +66,13 @@ const UpdateProduct = () => {
                 update(null);
             }
         } catch (error) {
-            console.error('Error updating product:', error);
             setErrorMessage('Error updating product. Please try again later.');
         }
     };
 
     const update = async (imageData: string | null) => {
         try {
-            const response = await axios.put(`http://localhost:8000/api/v1/product/update/${productId}`, {
+            const response = await axios.put(`${apiBaseUrl}/api/v1/product/update/${productId}`, {
                 name: name,
                 description: description,
                 price: price,

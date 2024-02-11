@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link   , useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 import Swal from 'sweetalert2';
+import getApi from '../utility/api';
 
 interface Product {
     id: number;
@@ -16,11 +17,12 @@ const AdminProduct = () => {
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
+    let apiBaseUrl = getApi();
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/v1/products');
+                const response = await axios.get(`${apiBaseUrl}/api/v1/products`);
                 setProducts(response.data.data.products);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -49,7 +51,7 @@ const AdminProduct = () => {
             });
 
             if (result.isConfirmed) {
-                await axios.delete(`http://localhost:8000/api/v1/product/${productId}`, {
+                await axios.delete(`${apiBaseUrl}/api/v1/product/${productId}`, {
                     headers: {
                         'Authorization': `Bearer ${userAccessToken}`
                     }
@@ -60,7 +62,6 @@ const AdminProduct = () => {
                 });
             }
         } catch (error) {
-            console.error('Error deleting product:', error);
             Swal.fire('Error!', 'Failed to delete the product.', 'error');
         }
     };

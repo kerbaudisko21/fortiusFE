@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import getApi from '../utility/api';
 
 const AddProduct = () => {
     const [name, setName] = useState('');
@@ -13,6 +14,7 @@ const AddProduct = () => {
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
+    let apiBaseUrl = getApi();
 
     useEffect(() => {
         if (!userData || userData.role != 'admin') {
@@ -23,14 +25,13 @@ const AddProduct = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        // Validate if all fields are filled
         if (!name || !price || !description || !image) {
             setErrorMessage('Please fill out all fields.');
             return;
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/v1/addproduct', {
+            const response = await axios.post(`${apiBaseUrl}/api/v1/addproduct`, {
                 name: name,
                 description: description,
                 price: price,
@@ -54,7 +55,6 @@ const AddProduct = () => {
                 });
             }
         } catch (error) {
-            console.error('Error adding product:', error);
         }
     };
 

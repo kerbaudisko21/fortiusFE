@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import getApi from '../utility/api';
 
 interface transactions {
     id: number;
@@ -16,7 +17,8 @@ const UserOrder = () => {
     const userId = userData ? userData.user.id : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
-    
+    let apiBaseUrl = getApi();
+
     useEffect(() => {
         if (!userData) {
             navigate('/login');
@@ -27,7 +29,7 @@ const UserOrder = () => {
 
     const fetchTransactions = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/v1/transactions/${userId}`, {
+            const response = await axios.get(`${apiBaseUrl}/api/v1/transactions/${userId}`, {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
@@ -52,7 +54,7 @@ const UserOrder = () => {
 
         if (result.isConfirmed) {
             try {
-                await axios.put(`http://localhost:8000/api/v1/transactions/cancel/${transactionId}`, {}, {
+                await axios.put(`${apiBaseUrl}/api/v1/transactions/cancel/${transactionId}`, {}, {
                     headers: {
                         'Authorization': `Bearer ${userAccessToken}`
                     }

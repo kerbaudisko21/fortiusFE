@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'; // Import Axios
+import getApi from '../utility/api';
 
 interface CartItem {
     name: string;
@@ -13,6 +14,7 @@ const Cart = () => {
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
     const userId = userData ? userData.user.id : null;
+    let apiBaseUrl = getApi();
 
     useEffect(() => {
         const storedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
@@ -44,7 +46,7 @@ const Cart = () => {
     const checkout = () => {
         const totalAmount = calculateSubtotal();
 
-        axios.post('http://localhost:8000/api/v1/checkout', { userId, totalAmount, cartItems }, {
+        axios.post(`${apiBaseUrl}/api/v1/checkout`, { userId, totalAmount, cartItems }, {
             headers: {
                 'Authorization': `Bearer ${userAccessToken}`
             }

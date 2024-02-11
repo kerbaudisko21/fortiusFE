@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import getApi from '../utility/api';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -30,10 +31,11 @@ const Signup = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch({ type: 'REGIS_START' });
+        let apiBaseUrl = getApi();
 
         try {
             let response = await axios.post(
-                'http://localhost:8000/api/v1/register',
+                `${apiBaseUrl}/api/v1/register`,
                 {
                     username: username,
                     email: email,
@@ -59,7 +61,7 @@ const Signup = () => {
             } else {
                 dispatch({ type: 'REGIS_FAILURE' });
             }
-        } catch (err) {
+        } catch (err: any) {
             if (err.response && err.response.data && err.response.data.message) {
                 setErrorMessage(err.response.data.message);
             } else {

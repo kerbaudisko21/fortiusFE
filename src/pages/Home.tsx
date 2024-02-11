@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import promotionBanner from '../assets/cake-promotion.jpg';
 import ProductCard from '../components/ProductCard';
 import axios from 'axios';
+import getApi from '../utility/api';
 
 
 const Home = () => {
@@ -33,8 +34,10 @@ const Home = () => {
 
     useEffect(() => {
         const fetchBestSellers = async () => {
+            let apiBaseUrl = getApi();
+
             try {
-                const response = await axios.get('http://localhost:8000/api/v1/products');
+                const response = await axios.get(`${apiBaseUrl}/api/v1/products`);
                 setProducts(response.data.data.products);
             } catch (error) {
                 console.error('Error fetching best sellers:', error);

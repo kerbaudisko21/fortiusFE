@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import axios from 'axios';
+import getApi from '../utility/api';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -19,6 +20,7 @@ const Login = () => {
     const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch({ type: 'LOGIN_START' });
+        let apiBaseUrl = getApi();
 
         try {
             if (!isValidEmail(email)) {
@@ -27,7 +29,7 @@ const Login = () => {
             }
 
             let response = await axios.post(
-                'http://localhost:8000/api/v1/login',
+                `${apiBaseUrl}/api/v1/login`,
                 {
                     email: email,
                     password: password,

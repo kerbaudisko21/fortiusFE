@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import getApi from '../utility/api';
 
 interface Product {
     productId: number;
@@ -19,11 +20,12 @@ const Product = () => {
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
+    let apiBaseUrl = getApi();
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/v1/products');
+                const response = await axios.get(`${apiBaseUrl}/api/v1/products`);
                 setProducts(response.data.data.products);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -41,7 +43,7 @@ const Product = () => {
             navigate('/login');
         } else {
             const existingItemIndex = cartItems.findIndex(cartItem => cartItem.name === item.name);
-    
+
             if (existingItemIndex !== -1) {
                 const updatedCartItems = [...cartItems];
                 updatedCartItems[existingItemIndex].quantity += 1;
