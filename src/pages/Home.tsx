@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -6,8 +6,6 @@ import promotionBanner from '../assets/cake-promotion.jpg';
 import ProductCard from '../components/ProductCard';
 import axios from 'axios';
 import getApi from '../utility/api';
-
-
 
 interface Product {
     productId: number;
@@ -43,18 +41,17 @@ const Home = () => {
     };
 
     useEffect(() => {
-        const fetchBestSellers = async () => {
+        const fetchProducts = async () => {
             let apiBaseUrl = getApi();
 
             try {
                 const response = await axios.get(`${apiBaseUrl}/api/v1/products`);
                 setProducts(response.data.data.products);
             } catch (error) {
-                console.error('Error fetching best sellers:', error);
             }
         };
 
-        fetchBestSellers();
+        fetchProducts();
     }, []);
 
     return (
@@ -66,7 +63,14 @@ const Home = () => {
                 <Slider {...sliderSettings}>
                     {products.map((product) => (
                         <div key={product.id}>
-                            <ProductCard name={product.name} imageSrc={product.image} price={product.price} description={product.description} />
+                            <ProductCard
+                                product_id={product.id}
+                                name={product.name}
+                                imageSrc={product.image}
+                                price={product.price}
+                                description={product.description}
+                                onAddToCart={() => { }}
+                            />
                         </div>
                     ))}
                 </Slider>
