@@ -20,7 +20,7 @@ const UpdateProduct = () => {
     useEffect(() => {
         const fetchProductData = async () => {
             try {
-                const response = await axios.get(`${apiBaseUrl}/api/v1/product/${productId}`, {
+                const response = await axios.get(`${apiBaseUrl}/product/${productId}`, {
                     headers: {
                         'Authorization': `Bearer ${userAccessToken}`
                     }
@@ -72,7 +72,7 @@ const UpdateProduct = () => {
 
     const update = async (imageData: string | null) => {
         try {
-            const response = await axios.put(`${apiBaseUrl}/api/v1/product/update/${productId}`, {
+            const response = await axios.put(`${apiBaseUrl}/product/update/${productId}`, {
                 name: name,
                 description: description,
                 price: price,

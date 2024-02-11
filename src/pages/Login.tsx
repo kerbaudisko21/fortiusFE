@@ -29,7 +29,7 @@ const Login = () => {
             }
 
             let response = await axios.post(
-                `${apiBaseUrl}/api/v1/login`,
+                `${apiBaseUrl}/login`,
                 {
                     email: email,
                     password: password,

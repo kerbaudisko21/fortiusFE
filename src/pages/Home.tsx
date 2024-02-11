@@ -45,7 +45,7 @@ const Home = () => {
             let apiBaseUrl = getApi();
 
             try {
-                const response = await axios.get(`${apiBaseUrl}/api/v1/products`);
+                const response = await axios.get(`${apiBaseUrl}/products`);
                 setProducts(response.data.data.products);
             } catch (error) {
             }

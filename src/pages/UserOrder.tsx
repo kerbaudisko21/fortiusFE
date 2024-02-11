@@ -29,7 +29,7 @@ const UserOrder = () => {
 
     const fetchTransactions = async () => {
         try {
-            const response = await axios.get(`${apiBaseUrl}/api/v1/transactions/${userId}`, {
+            const response = await axios.get(`${apiBaseUrl}/transactions/${userId}`, {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
@@ -54,7 +54,7 @@ const UserOrder = () => {
 
         if (result.isConfirmed) {
             try {
-                await axios.put(`${apiBaseUrl}/api/v1/transactions/cancel/${transactionId}`, {}, {
+                await axios.put(`${apiBaseUrl}/transactions/cancel/${transactionId}`, {}, {
                     headers: {
                         'Authorization': `Bearer ${userAccessToken}`
                     }

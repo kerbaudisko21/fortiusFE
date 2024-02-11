@@ -28,7 +28,7 @@ const UserOrderDetail = () => {
 
     const fetchOrderDetail = async () => {
         try {
-            const response = await axios.get(`${apiBaseUrl}/api/v1/transactions/detail/${transactionId}`, {
+            const response = await axios.get(`${apiBaseUrl}/transactions/detail/${transactionId}`, {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }

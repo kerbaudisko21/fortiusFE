@@ -30,7 +30,7 @@ const AdminOrder = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await axios.get(`${apiBaseUrl}/api/v1/transactions`, {
+            const response = await axios.get(`${apiBaseUrl}/transactions`, {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
@@ -44,7 +44,7 @@ const AdminOrder = () => {
 
     const updateOrderStatus = async (orderId: number, newStatus: string) => {
         try {
-            await axios.put(`${apiBaseUrl}/api/v1/transactions/update_status/${orderId}`, { status: newStatus }, {
+            await axios.put(`${apiBaseUrl}/transactions/update_status/${orderId}`, { status: newStatus }, {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
@@ -75,7 +75,7 @@ const AdminOrder = () => {
             });
 
             if (confirmed.isConfirmed) {
-                await axios.delete(`${apiBaseUrl}/api/v1/transactions/${orderId}`, {
+                await axios.delete(`${apiBaseUrl}/transactions/${orderId}`, {
                     headers: {
                         'Authorization': `Bearer ${userAccessToken}`
                     }

@@ -31,7 +31,7 @@ const AddProduct = () => {
         }
 
         try {
-            const response = await axios.post(`${apiBaseUrl}/api/v1/addproduct`, {
+            const response = await axios.post(`${apiBaseUrl}/addproduct`, {
                 name: name,
                 description: description,
                 price: price,

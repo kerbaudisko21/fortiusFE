@@ -46,7 +46,7 @@ const Cart = () => {
     const checkout = () => {
         const totalAmount = calculateSubtotal();
 
-        axios.post(`${apiBaseUrl}/api/v1/checkout`, { userId, totalAmount, cartItems }, {
+        axios.post(`${apiBaseUrl}/checkout`, { userId, totalAmount, cartItems }, {
             headers: {
                 'Authorization': `Bearer ${userAccessToken}`
             }

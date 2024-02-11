@@ -22,7 +22,7 @@ const AdminProduct = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get(`${apiBaseUrl}/api/v1/products`);
+                const response = await axios.get(`${apiBaseUrl}/products`);
                 setProducts(response.data.data.products);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -51,7 +51,7 @@ const AdminProduct = () => {
             });
 
             if (result.isConfirmed) {
-                await axios.delete(`${apiBaseUrl}/api/v1/product/${productId}`, {
+                await axios.delete(`${apiBaseUrl}/product/${productId}`, {
                     headers: {
                         'Authorization': `Bearer ${userAccessToken}`
                     }
