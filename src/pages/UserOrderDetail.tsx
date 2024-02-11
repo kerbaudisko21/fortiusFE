@@ -3,12 +3,17 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import getApi from '../utility/api';
 
+interface orderDetail {
+    product_name: string;
+    price: number;
+    quantity: number;
+}
+
 const UserOrderDetail = () => {
-    const [orderDetail, setOrderDetail] = useState(null);
+    const [orderDetail, setOrderDetail] = useState<orderDetail[]>();
     let { transactionId } = useParams();
     const user = localStorage.getItem('user');
     const userData = user ? JSON.parse(user) : null;
-    const userId = userData ? userData.user.id : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
     let apiBaseUrl = getApi();
@@ -30,7 +35,6 @@ const UserOrderDetail = () => {
             });
             setOrderDetail(response.data.data.transaction_items);
         } catch (error: any) {
-            console.error('Error fetching order detail:', error.message);
         }
     };
 

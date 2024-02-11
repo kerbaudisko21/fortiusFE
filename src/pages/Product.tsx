@@ -18,7 +18,6 @@ const Product = () => {
     const [cartItems, setCartItems] = useState<{ product_id: number, name: string; price: number; quantity: number }[]>([]);
     const user = localStorage.getItem('user');
     const userData = user ? JSON.parse(user) : null;
-    const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
     let apiBaseUrl = getApi();
 

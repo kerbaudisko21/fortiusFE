@@ -6,7 +6,7 @@ import getApi from '../utility/api';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { loading, error, dispatch } = useContext(AuthContext);
+    const { dispatch } = useContext(AuthContext);
     const [notification, setNotification] = useState<string | null>(null);
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {

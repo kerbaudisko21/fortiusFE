@@ -9,7 +9,7 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [agreeTerms, setAgreeTerms] = useState(false);
-    const { loading, error, dispatch } = useContext(AuthContext);
+    const { dispatch } = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -8,8 +8,18 @@ import axios from 'axios';
 import getApi from '../utility/api';
 
 
+
+interface Product {
+    productId: number;
+    id: number;
+    name: string;
+    price: number;
+    description: string;
+    image: string;
+}
+
 const Home = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<Product[]>([]);
 
     const sliderSettings = {
         infinite: false,
@@ -46,7 +56,7 @@ const Home = () => {
 
         fetchBestSellers();
     }, []);
-    
+
     return (
         <div style={{ marginBottom: '50px' }}>
             <img src={promotionBanner} alt="Promotion Banner" style={{ width: '100%', height: 'auto', maxHeight: '550px' }} />
