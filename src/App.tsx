@@ -10,7 +10,6 @@ import Signup from './pages/Signup';
 import AdminProduct from './pages/AdminProduct';
 import AddProduct from './pages/AddProduct';
 import UpdateProduct from './pages/UpdateProduct';
-import { useState } from 'react';
 import Cart from './pages/Cart';
 import UserOrder from './pages/UserOrder';
 import UserOrderDetail from './pages/UserOrderDetail';

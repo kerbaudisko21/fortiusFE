@@ -26,7 +26,7 @@ const UpdateProduct = () => {
                     }
                 });
 
-                const { name, price, description, image } = response.data.data.product;
+                const { name, price, description} = response.data.data.product;
                 setName(name);
                 setPrice(price);
                 setDescription(description);
