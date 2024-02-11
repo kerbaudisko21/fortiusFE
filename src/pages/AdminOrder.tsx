@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 interface Order {
@@ -13,11 +13,17 @@ const AdminOrder = () => {
     const user = localStorage.getItem('user');
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (userAccessToken) {
             fetchOrders();
         }
+
+        if (!userData) {
+            navigate('/login');
+        }
+
     }, [userAccessToken]);
 
     const fetchOrders = async () => {
@@ -28,7 +34,7 @@ const AdminOrder = () => {
                 }
             });
 
-            setOrders(response.data.transactions);
+            setOrders(response.data.data.transactions);
         } catch (error: any) {
             console.error('Error fetching orders:', error.message);
         }

@@ -17,7 +17,7 @@ interface NavBarProps {
 function NavBar({ imageSrcPath, navItems }: NavBarProps) {
     const [isOpen, setIsOpen] = useState(false);
     const { state, dispatch } = useContext(AuthContext);
-
+    
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
@@ -93,7 +93,7 @@ function NavBar({ imageSrcPath, navItems }: NavBarProps) {
                 <div className="hidden md:flex space-x-4 items-center">
                     {state.user ? (
                         <div className="relative">
-                            {state.user.data.role == 'admin' ? (
+                            {state.user.user.role == 'admin' ? (
                                 <></>
                             ) : (
                                 <Link to="/cart">Cart</Link>
@@ -102,7 +102,7 @@ function NavBar({ imageSrcPath, navItems }: NavBarProps) {
                                 className="cursor-pointer mx-2"
                                 onClick={toggleMenu}
                             >
-                                {state.user.data.username ?? null}
+                                {state.user.user.username ?? null}
                                 <div
                                     className={`absolute top-full right-0 mt-2 w-40 bg-white border rounded-md shadow-lg ${isOpen ? '' : 'hidden'}`}
                                 >
@@ -142,8 +142,8 @@ function NavBar({ imageSrcPath, navItems }: NavBarProps) {
                         </>
                     ) :
                         <>
-                            {state.user.data.role == 'admin' ? (<> </>) : (<Link to="/cart">Cart</Link>)}
-                            <Link to="">{state.user.data.username ?? null}</Link>
+                            {state.user.user.role == 'admin' ? (<> </>) : (<Link to="/cart">Cart</Link>)}
+                            <Link to="">{state.user.user.username ?? null}</Link>
                         </>}
                 </div>
             </div>

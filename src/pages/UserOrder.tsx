@@ -13,10 +13,10 @@ const UserOrder = () => {
     const [transactions, setTransactions] = useState<transactions[]>([]);
     const user = localStorage.getItem('user');
     const userData = user ? JSON.parse(user) : null;
-    const userId = userData ? userData.data.id : null;
+    const userId = userData ? userData.user.id : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
-
+    
     useEffect(() => {
         if (!userData) {
             navigate('/login');
@@ -33,7 +33,7 @@ const UserOrder = () => {
                 }
             });
 
-            setTransactions(response.data.transactions);
+            setTransactions(response.data.data.transactions);
         } catch (error: any) {
             console.error('Error fetching transactions:', error.message);
         }

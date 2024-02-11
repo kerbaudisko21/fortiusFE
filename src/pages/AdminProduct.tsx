@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link   , useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 import Swal from 'sweetalert2';
 
 interface Product {
@@ -15,18 +15,24 @@ const AdminProduct = () => {
     const user = localStorage.getItem('user');
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/api/v1/products');
-                setProducts(response.data.products);
+                setProducts(response.data.data.products);
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
         };
 
-        fetchProducts();
+        if (!userData) {
+            navigate('/login');
+        } else {
+            fetchProducts();
+        }
+
     }, []);
 
     const handleDeleteProduct = async (productId: number) => {

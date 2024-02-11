@@ -12,7 +12,7 @@ const Cart = () => {
     const user = localStorage.getItem('user');
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
-    const userId = userData ? userData.data.id : null;
+    const userId = userData ? userData.user.id : null;
 
     useEffect(() => {
         const storedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');

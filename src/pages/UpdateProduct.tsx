@@ -14,13 +14,7 @@ const UpdateProduct = () => {
     const userData = user ? JSON.parse(user) : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!userData || userData.role != 'admin') {
-            navigate('/login');
-        }
-    }, [userData]);
-
+    
     useEffect(() => {
         const fetchProductData = async () => {
             try {
@@ -30,7 +24,7 @@ const UpdateProduct = () => {
                     }
                 });
 
-                const { name, price, description, image } = response.data.product;
+                const { name, price, description, image } = response.data.data.product;
                 setName(name);
                 setPrice(price);
                 setDescription(description);
@@ -44,7 +38,7 @@ const UpdateProduct = () => {
         }
 
         fetchProductData();
-    }, [productId, userData]);
+    }, [productId]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

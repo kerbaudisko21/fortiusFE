@@ -7,7 +7,7 @@ const UserOrderDetail = () => {
     let { transactionId } = useParams();
     const user = localStorage.getItem('user');
     const userData = user ? JSON.parse(user) : null;
-    const userId = userData ? userData.data.id : null;
+    const userId = userData ? userData.user.id : null;
     const userAccessToken = userData ? userData.access_token : null;
     const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const UserOrderDetail = () => {
             navigate('/login');
         }
 
-        fetchOrderDetail();
+        fetchOrderDetail(); 
     }, [userData]);
 
     const fetchOrderDetail = async () => {
@@ -26,7 +26,7 @@ const UserOrderDetail = () => {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
             });
-            setOrderDetail(response.data.transaction_items);
+            setOrderDetail(response.data.data.transaction_items);
         } catch (error: any) {
             console.error('Error fetching order detail:', error.message);
         }

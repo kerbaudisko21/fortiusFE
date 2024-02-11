@@ -23,7 +23,7 @@ interface NavItem {
 
 function App() {
   const user = JSON.parse(localStorage.getItem('user') as string) ?? null;
-  const role = user != null ? user.data.role : null;  
+  const role = user != null ? user.role : null;  
   
   const navItems: NavItem[] = (role && role == 'admin') ? [
     { name: "Home", path: "/" },

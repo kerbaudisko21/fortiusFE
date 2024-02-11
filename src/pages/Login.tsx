@@ -40,7 +40,7 @@ const Login = () => {
             );
 
             if (response.status === 200) {
-                localStorage.setItem('user', JSON.stringify(response.data));
+                localStorage.setItem('user', JSON.stringify(response.data.data));
                 window.location.href = '/';
             } else {
                 setNotification('Login failed. Please check your credentials and try again.');
